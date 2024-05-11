@@ -73,6 +73,19 @@ public class PlaylistDataFetcher {
         payload.setPlaylist(null);
         return payload;
     }
+
+    @DgsData(parentType="AddItemsToPlaylistPayload", field="playlist")
+    public MappedPlaylist getPayloadPlaylist(DgsDataFetchingEnvironment dfe) {
+        AddItemsToPlaylistPayload payload = dfe.getSource();
+        Playlist playlist = payload.getPlaylist();
+
+        if (playlist != null) {
+            String playlistId = playlist.getId();
+            return spotifyClient.playlistRequest(playlistId);
+        }
+
+        return null;
+    }
 }
 
 
