@@ -1,5 +1,6 @@
 package com.example.soundtracks.datasources;
 
+import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.PlaylistCollection;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -15,5 +16,13 @@ public class SpotifyClient {
                 .uri("/browse/featured-playlists")
                 .retrieve()
                 .body(PlaylistCollection.class);
+    }
+
+    public MappedPlaylist playlistRequest(String playlistId) {
+        return client
+                .get()
+                .uri("/playlists/{playlist_id}", playlistId)
+                .retrieve()
+                .body(MappedPlaylist.class);
     }
 }

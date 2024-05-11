@@ -4,6 +4,7 @@ import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.PlaylistCollection;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
+import com.netflix.graphql.dgs.InputArgument;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,6 +22,11 @@ public class PlaylistDataFetcher {
     public List<MappedPlaylist> featuredPlaylists() {
         PlaylistCollection response = spotifyClient.featuredPlaylistsRequest();
         return response.getPlaylists();
+    }
+
+    @DgsQuery
+    public MappedPlaylist playlist(@InputArgument String id) {
+        return spotifyClient.playlistRequest(id);
     }
 }
 
