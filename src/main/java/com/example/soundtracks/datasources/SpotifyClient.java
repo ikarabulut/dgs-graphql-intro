@@ -3,6 +3,7 @@ package com.example.soundtracks.datasources;
 import com.example.soundtracks.generated.types.Track;
 import com.example.soundtracks.models.MappedPlaylist;
 import com.example.soundtracks.models.PlaylistCollection;
+import com.example.soundtracks.models.Snapshot;
 import com.example.soundtracks.models.TrackCollection;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -42,5 +43,16 @@ public class SpotifyClient {
         } else {
             return null;
         }
+    }
+
+    public Snapshot addItemsToPlaylist(String playlistId, String uris) {
+        return client
+                .post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/playlists/{playlist_id}/tracks")
+                        .queryParam("uris", uris)
+                        .build(playlistId))
+                .retrieve()
+                .body(Snapshot.class);
     }
 }
