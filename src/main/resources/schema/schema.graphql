@@ -6,6 +6,21 @@ type Playlist {
     name: String!
     "Describes the playlist, what to expect and entices the user to listen."
     description: String
+    "The tracks of the playlist."
+    tracks: [Track!]!
+}
+
+type Track {
+    "The ID for the track."
+    id: ID!
+    "The name of the track"
+    name: String!
+    "The track length in milliseconds."
+    durationMs: Int!
+    "Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown)"
+    explicit: Boolean!
+    "The URI for the track, usually a Spotify link."
+    uri: String!
 }
 
 type Query {
@@ -13,3 +28,4 @@ type Query {
     featuredPlaylists: [Playlist!]!
     playlist(id: ID!): Playlist
 }
+
